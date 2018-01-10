@@ -38,13 +38,15 @@ SYS                    = MAC # LNX|MAC (Linux is the default)
 DIST_NAME              = gemma-$(GEMMA_VERSION)
 DEBUG                  =     # DEBUG mode, set DEBUG= for a release
 SHOW_COMPILER_WARNINGS =
-WITH_LAPACK            = 1
-WITH_OPENBLAS          =     # Defaults to LAPACK - OPENBLAS may be faster
+WITH_LAPACK            = 
+WITH_OPENBLAS          = 1     # Defaults to LAPACK - OPENBLAS may be faster
 FORCE_STATIC           =     # Static linking of libraries
 GCC_FLAGS              = -O3 -I/usr/local/Cellar/gsl/2.4/include -I./eigen \
-                         -I/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Headers
+                         -I/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Headers \
+                         -I/usr/local/opt/openblas/include \
+                         -I/usr/local/opt/gsl@1/include
 TRAVIS_CI              =     # used by TRAVIS for testing
-EIGEN_INCLUDE_PATH=
+EIGEN_INCLUDE_PATH=          /usr/local/Cellar/eigen/3.3.4/include/eigen3
 CXX = g++
 
 # --------------------------------------------------------------------
@@ -86,8 +88,8 @@ HDR =
 # Detailed libary paths, D for dynamic and S for static
 LIBS += -framework Accelerate \
   /usr/local/opt/zlib/lib/libz.a \
-  /usr/local/Cellar/gsl/2.4/lib/libgsl.a \
-  /usr/local/Cellar/gsl/2.4/lib/libgslcblas.a
+  /usr/local/opt/gsl@1/lib/libgsl.a \
+  /usr/local/opt/gsl@1/lib/libgslcblas.a
 
 HDR          = $(wildcard src/*.h) ./src/version.h
 SOURCES      = $(wildcard src/*.cpp)

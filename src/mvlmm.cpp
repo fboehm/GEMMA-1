@@ -615,6 +615,36 @@ double MphEM(const char func_name, const size_t max_iter, const double max_prec,
   double logdet_Q, logdet_Ve;
   int sig;
 
+  //print inputs
+  cout<<"X, as inputted to MphEM: "<<endl;
+  for (size_t i=0; i<c_size; i++) {
+    for (size_t j=0; j<n_size; j++) {
+      cout<<gsl_matrix_get(X, i, j)<<"\t";
+    }
+    cout<<endl;
+  }	
+  cout<<"size2 of X: "<<endl;
+  cout<<X->size2<<endl;
+  
+  cout<<"size1 of X: "<<endl;
+  cout<<X->size1<<endl;
+  cout<<"Y, as inputted to MphEM: "<<endl;
+  for (size_t i=0; i<d_size; i++) {
+    for (size_t j=0; j<n_size; j++) {
+      cout<<gsl_matrix_get(Y, i, j)<<"\t";
+    }
+    cout<<endl;
+  }	
+  cout<<"size2 of Y: "<<endl;
+  cout<<Y->size2<<endl;
+  
+  cout<<"size1 of Y: "<<endl;
+  cout<<Y->size1<<endl;
+  
+  
+  
+  
+  
   // Calculate |XXt| and (XXt)^{-1}.
   gsl_blas_dsyrk(CblasUpper, CblasNoTrans, 1.0, X, 0.0, XXt);
   for (size_t i = 0; i < c_size; ++i) {
@@ -693,7 +723,33 @@ double MphEM(const char func_name, const size_t max_iter, const double max_prec,
 
     // Update V_g and V_e.
     UpdateV(eval, U_hat, E_hat, Sigma_uu, Sigma_ee, V_g, V_e);
-  }
+    // print statements
+    //print iteration number:
+    cout<< t<<endl;
+    
+    //print D_l
+    cout<<"D_l after iteration"<<endl;
+    for (size_t i=0; i<c_size; i++) {
+      cout<<gsl_vector_get(D_l, i)<<"\t";
+    }
+    cout<<endl;
+    //print UltVeh	
+    cout<<"UltVeh, after iteration "<<endl;
+    for (size_t i=0; i<d_size; i++) {
+      for (size_t j=0; j<d_size; j++) {
+        cout<<gsl_matrix_get(UltVeh, i, j)<<"\t";
+      }
+      cout<<endl;
+    }	
+    cout<<"UltVehi, after iteration "<<endl;
+    for (size_t i=0; i<d_size; i++) {
+      for (size_t j=0; j<d_size; j++) {
+        cout<<gsl_matrix_get(UltVehi, i, j)<<"\t";
+      }
+      cout<<endl;
+    }	
+    
+  } //end EM iterations
 
   gsl_matrix_free(XXt);
   gsl_matrix_free(XXti);
