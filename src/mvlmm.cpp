@@ -641,7 +641,21 @@ double MphEM(const char func_name, const size_t max_iter, const double max_prec,
   cout<<"size1 of Y: "<<endl;
   cout<<Y->size1<<endl;
   
+  cout<<"Vg, as inputted to MphEM: "<<endl;
+  for (size_t i=0; i<d_size; i++) {
+    for (size_t j=0; j<d_size; j++) {
+      cout<<gsl_matrix_get(V_g, i, j)<<"\t";
+    }
+    cout<<endl;
+  }	
   
+  cout<<"Ve, as inputted to MphEM: "<<endl;
+  for (size_t i=0; i<d_size; i++) {
+    for (size_t j=0; j<d_size; j++) {
+      cout<<gsl_matrix_get(V_e, i, j)<<"\t";
+    }
+    cout<<endl;
+  }	
   
   
   
@@ -668,7 +682,7 @@ double MphEM(const char func_name, const size_t max_iter, const double max_prec,
   // Start EM.
   for (size_t t = 0; t < max_iter; t++) {
     logdet_Ve = EigenProc(V_g, V_e, D_l, UltVeh, UltVehi);
-
+    
     logdet_Q = CalcQi(eval, D_l, X, Qi);
 
     gsl_blas_dgemm(CblasNoTrans, CblasNoTrans, 1.0, UltVehi, Y, 0.0, UltVehiY);
@@ -726,25 +740,40 @@ double MphEM(const char func_name, const size_t max_iter, const double max_prec,
     // print statements
     //print iteration number:
     cout<< t<<endl;
-    
+    //print logdet_Ve
+    cout<< logdet_Ve <<endl;
     //print D_l
-    cout<<"D_l after iteration"<<endl;
+    cout<<"D_l"<<endl;
     for (size_t i=0; i<c_size; i++) {
       cout<<gsl_vector_get(D_l, i)<<"\t";
     }
     cout<<endl;
     //print UltVeh	
-    cout<<"UltVeh, after iteration "<<endl;
+    cout<<"UltVeh"<<endl;
     for (size_t i=0; i<d_size; i++) {
       for (size_t j=0; j<d_size; j++) {
         cout<<gsl_matrix_get(UltVeh, i, j)<<"\t";
       }
       cout<<endl;
     }	
-    cout<<"UltVehi, after iteration "<<endl;
+    cout<<"UltVehi"<<endl;
     for (size_t i=0; i<d_size; i++) {
       for (size_t j=0; j<d_size; j++) {
         cout<<gsl_matrix_get(UltVehi, i, j)<<"\t";
+      }
+      cout<<endl;
+    }	
+    cout<<"Vg"<<endl;
+    for (size_t i=0; i<d_size; i++) {
+      for (size_t j=0; j<d_size; j++) {
+        cout<<gsl_matrix_get(V_g, i, j)<<"\t";
+      }
+      cout<<endl;
+    }	
+    cout<<"Ve"<<endl;
+    for (size_t i=0; i<d_size; i++) {
+      for (size_t j=0; j<d_size; j++) {
+        cout<<gsl_matrix_get(V_e, i, j)<<"\t";
       }
       cout<<endl;
     }	
