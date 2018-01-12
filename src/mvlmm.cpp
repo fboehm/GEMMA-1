@@ -745,7 +745,7 @@ double MphEM(const char func_name, const size_t max_iter, const double max_prec,
     cout<< logdet_Ve <<endl;
     //print D_l
     cout<<"D_l"<<endl;
-    for (size_t i=0; i<c_size; i++) {
+    for (size_t i=0; i<d_size; i++) {
       cout<<gsl_vector_get(D_l, i)<<"\t";
     }
     cout<<endl;
