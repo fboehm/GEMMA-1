@@ -741,6 +741,7 @@ double MphEM(const char func_name, const size_t max_iter, const double max_prec,
     //print iteration number:
     cout<< t<<endl;
     //print logdet_Ve
+    cout<<"logdet_Ve"<<endl;
     cout<< logdet_Ve <<endl;
     //print D_l
     cout<<"D_l"<<endl;
